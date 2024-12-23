@@ -39,6 +39,90 @@ persons in the color image. Nvblox uses this mask to separate reconstructed pers
 separate people-only part of the reconstruction. The [Technical Details](https://nvidia-isaac-ros.github.io/concepts/scene_reconstruction/nvblox/technical_details.html)
 provide more information on these three types of mapping.
 
+# Quickstart
+
+## Requirements
+This repo is tested on ubuntu 22.04, cuda 12.1, Nvidia RTX 3060 Ti, Nvidia driver 535.
+
+## Set Up Development Environment
+Set up your development environment by following the instructions in getting started. Clone isaac_ros_common under ${ISAAC_ROS_WS}/src.
+```
+cd ${ISAAC_ROS_WS}/src
+git clone -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git isaac_ros_common
+```
+
+Make sure required libraries are installed.
+```
+sudo apt-get install -y curl jq tar
+```
+## Set Up isaac_ros_nvblox
+There are two options for installing nvblox: installation from Debian, and installation from source.
+
+### Installation from Debian
+Launch the Docker container using the run_dev.sh script:
+```
+cd $ISAAC_ROS_WS && ./src/isaac_ros_common/scripts/run_dev.sh
+```
+Install `isaac_ros_nvblox` and its dependencies.
+```
+sudo apt-get update
+sudo apt update &&
+sudo apt-get install -y ros-humble-isaac-ros-nvblox && \
+rosdep update && \
+rosdep install isaac_ros_nvblox
+```
+### Installation from source
+Clone isaac_ros_nvblox under ${ISAAC_ROS_WS}/src.
+```
+cd ${ISAAC_ROS_WS}/src
+git clone --recursive -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git isaac_ros_nvblox
+```
+Launch the Docker container using the run_dev.sh script:
+```
+cd $ISAAC_ROS_WS/src/isaac_ros_common && \
+./scripts/run_dev.sh
+```
+Use rosdep to install the package’s dependencies.
+```
+sudo apt-get update
+rosdep update && rosdep install -i -r --from-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/ --rosdistro humble -y
+```
+Build and source the ROS workspace
+```
+cd /workspaces/isaac_ros-dev
+colcon build --symlink-install --base-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/
+source install/setup.bash
+```
+## Run Example Launch File
+Run the example with:
+```
+ros2 launch nvblox_examples_bringup isaac_sim_example.launch.py \
+rosbag:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_nvblox/quickstart \
+navigation:=False
+```
+Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
+
+https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/basic_example_rviz.png/
+Try More Examples
+To continue your exploration, check out the following suggested nvblox examples:
+
+Launch file
+
+Description
+
+isaac_sim_example.launch.py
+
+Example to run with Isaac Sim (tutorial)
+
+Realsense camera launch
+```
+realsense_example.launch.py
+```
+Zed camera launch
+```
+zed_example.launch.py
+```
+
 ## Performance
 
 The following tables provides timings for various functions of
@@ -137,74 +221,6 @@ The following tables provides timings for various functions of
 (\*): Dynamics not supported on Jetson Nano.
 
 ---
-
-# Quickstart
-## Set Up Development Environment
-Set up your development environment by following the instructions in getting started. Clone isaac_ros_common under ${ISAAC_ROS_WS}/src.
-```
-cd ${ISAAC_ROS_WS}/src
-git clone -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git isaac_ros_common
-```
-
-Make sure required libraries are installed.
-```
-sudo apt-get install -y curl jq tar
-```
-## Set Up isaac_ros_nvblox
-There are two options for installing nvblox: installation from Debian, and installation from source.
-
-### Installation from Debian
-
-### Installation from source
-Clone isaac_ros_nvblox under ${ISAAC_ROS_WS}/src.
-```
-cd ${ISAAC_ROS_WS}/src
-git clone --recursive -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git isaac_ros_nvblox
-```
-Launch the Docker container using the run_dev.sh script:
-```
-cd $ISAAC_ROS_WS/src/isaac_ros_common && \
-./scripts/run_dev.sh
-```
-Use rosdep to install the package’s dependencies.
-```
-sudo apt-get update
-rosdep update && rosdep install -i -r --from-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/ --rosdistro humble -y
-```
-Build and source the ROS workspace
-```
-cd /workspaces/isaac_ros-dev
-colcon build --symlink-install --base-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/
-source install/setup.bash
-```
-Run Example Launch File
-Run the example with:
-```
-ros2 launch nvblox_examples_bringup isaac_sim_example.launch.py \
-rosbag:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_nvblox/quickstart \
-navigation:=False
-```
-Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
-
-https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/basic_example_rviz.png/
-Try More Examples
-To continue your exploration, check out the following suggested nvblox examples:
-
-Launch file
-
-Description
-
-isaac_sim_example.launch.py
-
-Example to run with Isaac Sim (tutorial)
-
-realsense_example.launch.py
-
-Example to run with RealSense camera(s) (tutorial)
-
-zed_example.launch.py
-
-Example to run with a ZED camera (tutorial)
 
 
 
