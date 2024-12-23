@@ -42,7 +42,7 @@ provide more information on these three types of mapping.
 # Quickstart
 
 ## Requirements
-This repo is tested on ubuntu 22.04, cuda 12.1, Nvidia RTX 3060 Ti, Nvidia driver 535.
+This repo is tested on ubuntu 22.04, ROS Humble, Cuda 12.1, Nvidia RTX 3060 Ti, Nvidia driver 535.
 
 ## Set Up Development Environment
 Set up your development environment by following the instructions in getting started. Clone isaac_ros_common under ${ISAAC_ROS_WS}/src.
