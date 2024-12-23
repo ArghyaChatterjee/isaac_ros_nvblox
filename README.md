@@ -4,41 +4,6 @@ Nvblox ROS 2 integration for local 3D scene reconstruction and mapping.
 
 <div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_sim_nvblox_humans.gif/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_sim_nvblox_humans.gif/" width="600px"/></a></div>
 
-## Overview
-
-[Isaac ROS Nvblox](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox) contains ROS 2 packages for 3D reconstruction and cost
-maps for navigation. `isaac_ros_nvblox` processes depth and pose to
-reconstruct a 3D scene in real-time and outputs a 2D costmap for
-[Nav2](https://github.com/ros-planning/navigation2). The costmap is
-used in planning during navigation as a vision-based solution to avoid
-obstacles.
-
-
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox_nodegraph.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox_nodegraph.png/" width="750px"/></a></div>
-
-Above is a typical graph that uses `isaac_ros_nvblox`.
-Nvblox takes a depth image, a color image, and a pose as input, with
-which it computes a 3D scene reconstruction on the GPU. In this graph
-the pose is computed using `visual_slam`, or some other pose estimation
-node. The reconstruction
-is sliced into an output cost map which is provided through a cost map plugin
-into [Nav2](https://github.com/ros-planning/navigation2).
-An optional colorized 3D reconstruction is delivered into `rviz`
-using the mesh visualization plugin. Nvblox streams mesh updates
-to RViz to update the reconstruction in real-time as it is built.
-
-`isaac_ros_nvblox` offers several modes of operation. In its default mode
-the environment is assumed to be static. Two additional modes of operation are provided
-to support mapping scenes which contain dynamic elements: people reconstruction, for
-mapping scenes containing people, and dynamic reconstruction, for mapping
-scenes containing more general dynamic objects.
-The graph above shows `isaac_ros_nvblox` operating in people reconstruction
-mode. The color image corresponding to the depth image is processed with `unet`, using
-the PeopleSemSegNet DNN model to estimate a segmentation mask for
-persons in the color image. Nvblox uses this mask to separate reconstructed persons into a
-separate people-only part of the reconstruction. The [Technical Details](https://nvidia-isaac-ros.github.io/concepts/scene_reconstruction/nvblox/technical_details.html)
-provide more information on these three types of mapping.
-
 # Quickstart
 
 ## Requirements
@@ -222,6 +187,36 @@ The following tables provides timings for various functions of
 
 ---
 
+## Overview
+
+[Isaac ROS Nvblox](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox) contains ROS 2 packages for 3D reconstruction and cost maps for navigation. `isaac_ros_nvblox` processes depth and pose to
+reconstruct a 3D scene in real-time and outputs a 2D costmap for [Nav2](https://github.com/ros-planning/navigation2). The costmap is used in planning during navigation as a vision-based solution to avoid
+obstacles.
+
+<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox_nodegraph.png/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_ros_nvblox_nodegraph.png/" width="750px"/></a></div>
+
+Above is a typical graph that uses `isaac_ros_nvblox`.
+Nvblox takes a depth image, a color image, and a pose as input, with
+which it computes a 3D scene reconstruction on the GPU. In this graph
+the pose is computed using `visual_slam`, or some other pose estimation
+node. The reconstruction
+is sliced into an output cost map which is provided through a cost map plugin
+into [Nav2](https://github.com/ros-planning/navigation2).
+An optional colorized 3D reconstruction is delivered into `rviz`
+using the mesh visualization plugin. Nvblox streams mesh updates
+to RViz to update the reconstruction in real-time as it is built.
+
+`isaac_ros_nvblox` offers several modes of operation. In its default mode
+the environment is assumed to be static. Two additional modes of operation are provided
+to support mapping scenes which contain dynamic elements: people reconstruction, for
+mapping scenes containing people, and dynamic reconstruction, for mapping
+scenes containing more general dynamic objects.
+The graph above shows `isaac_ros_nvblox` operating in people reconstruction
+mode. The color image corresponding to the depth image is processed with `unet`, using
+the PeopleSemSegNet DNN model to estimate a segmentation mask for
+persons in the color image. Nvblox uses this mask to separate reconstructed persons into a
+separate people-only part of the reconstruction. The [Technical Details](https://nvidia-isaac-ros.github.io/concepts/scene_reconstruction/nvblox/technical_details.html)
+provide more information on these three types of mapping.
 
 
 ## Packages
