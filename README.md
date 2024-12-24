@@ -28,7 +28,7 @@ Launch the Docker container using the run_dev.sh script:
 ```
 cd $ISAAC_ROS_WS && ./src/isaac_ros_common/scripts/run_dev.sh
 ```
-Install `isaac_ros_nvblox` and its dependencies.
+Inside the docker container, install `isaac_ros_nvblox` and its dependencies.
 ```
 sudo apt-get update
 sudo apt update &&
@@ -47,19 +47,19 @@ Launch the Docker container using the run_dev.sh script:
 cd $ISAAC_ROS_WS/src/isaac_ros_common && \
 ./scripts/run_dev.sh
 ```
-Use rosdep to install the package’s dependencies.
+Inside the docker container, use rosdep to install the package’s dependencies.
 ```
 sudo apt-get update
 rosdep update && rosdep install -i -r --from-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/ --rosdistro humble -y
 ```
-Build and source the ROS workspace
+Inside the docker container, build and source the ROS workspace.
 ```
 cd /workspaces/isaac_ros-dev
 colcon build --symlink-install --base-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox/
 source install/setup.bash
 ```
 ## Run Example Launch File
-Run the example with:
+Inside the docker container, run the example with:
 ```
 ros2 launch nvblox_examples_bringup isaac_sim_example.launch.py \
 rosbag:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_nvblox/quickstart \
@@ -67,23 +67,18 @@ navigation:=False
 ```
 Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
 
-https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/basic_example_rviz.png/
-Try More Examples
+## Try More Examples
 To continue your exploration, check out the following suggested nvblox examples:
-
-Launch file
-
-Description
-
+```
 isaac_sim_example.launch.py
+```
 
-Example to run with Isaac Sim (tutorial)
-
-Realsense camera launch
+Example Realsense camera launch:
 ```
 realsense_example.launch.py
 ```
-Zed camera launch
+
+Example Zed camera launch:
 ```
 zed_example.launch.py
 ```
