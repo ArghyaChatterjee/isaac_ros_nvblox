@@ -128,19 +128,15 @@ navigation:=False
 Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
 
 ## Try More Examples
-To continue your exploration, check out the following suggested nvblox examples:
-```
-isaac_sim_example.launch.py
-```
 
 Example Realsense camera launch:
 ```
-realsense_example.launch.py
+ros2 launch nvblox_examples_bringup realsense_example.launch.py
 ```
 
 Example Zed camera launch:
 ```
-zed_example.launch.py
+ros2 launch nvblox_examples_bringup zed_example.launch.py
 ```
 
 ## Performance
