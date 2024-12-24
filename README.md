@@ -10,7 +10,27 @@ Nvblox ROS 2 integration for local 3D scene reconstruction and mapping.
 This repo is tested on ubuntu 22.04, ROS Humble, Cuda 12.1, Nvidia RTX 3060 Ti, Nvidia driver 535.
 
 ## Set Up Development Environment
-Set up your development environment by following the instructions in getting started. Clone isaac_ros_common under ${ISAAC_ROS_WS}/src.
+Set up your development environment by following the instructions in getting started. 
+
+- Install the nvidia-container-toolkit using the [instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-apt).
+- Configure nvidia-container-toolkit for Docker using the [instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker).
+
+Restart Docker:
+```
+sudo systemctl daemon-reload && sudo systemctl restart docker
+```
+Install Git LFS to pull down all large files:
+```
+sudo apt-get install git-lfs
+git lfs install --skip-repo
+```
+Create a ROS 2 workspace for experimenting with Isaac ROS:
+```
+mkdir -p  ~/workspaces/isaac_ros-dev/src
+echo "export ISAAC_ROS_WS=${HOME}/workspaces/isaac_ros-dev/" >> ~/.bashrc
+source ~/.bashrc
+```
+Clone isaac_ros_common under ${ISAAC_ROS_WS}/src.
 ```
 cd ${ISAAC_ROS_WS}/src
 git clone -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git isaac_ros_common
