@@ -132,13 +132,41 @@ Example Realsense camera launch inside the docker container:
 ```
 ros2 launch nvblox_examples_bringup realsense_example.launch.py
 ```
-## Run ZED Camera Launch File
-Example live ZED camera launch inside the docker container:
+## Run with ZED Camera
+Clone the zed-ros2-wrapper repository on the master branch:
+```
+cd ${ISAAC_ROS_WS}/src && \
+git clone --recurse-submodules https://github.com/stereolabs/zed-ros2-wrapper
+```
+If you are using ZED X or ZED X Mini refer to the appropriate stereolabs setup guide. Plug in the USB cable of your ZED camera before launching the Docker container in the next step.
+
+Launch the Docker container.
+```
+cd ${ISAAC_ROS_WS}/src/isaac_ros_common && \
+./scripts/run_dev.sh
+```
+Now, you will install the ZED SDK. Use `install-zed-aarch64.sh` instead of `install-zed-x86_64.sh` below if you are running on Nvidia Jetson.
+```
+sudo chmod +x ${ISAAC_ROS_WS}/src/isaac_ros_common/docker/scripts/install-zed-x86_64.sh && \
+${ISAAC_ROS_WS}/src/isaac_ros_common/docker/scripts/install-zed-x86_64.sh
+```
+Install the dependencies for the zed_wrapper package and build it:
+```
+cd ${ISAAC_ROS_WS} && \
+sudo apt update && \
+rosdep update && rosdep install --from-paths src/zed-ros2-wrapper --ignore-src -r -y && \
+colcon build --symlink-install --packages-up-to zed_wrapper
+```
+After the container image is rebuilt and you are inside the container, you can run the following to check that the ZED camera is connected.
+```
+/usr/local/zed/tools/ZED_Explorer
+```
+ROS2 Example live ZED camera launch inside the docker container for nvblox package:
 ```
 ros2 launch nvblox_examples_bringup zed_example.launch.py \
 camera:=<ZED_CAMERA_MODEL>
 ```
-Example recorded ZED camera launch:
+ROS2 Example recorded ZED camera launch for nvblox package:
 ```
 ros2 launch nvblox_examples_bringup zed_example.launch.py \
 camera:=<ZED_CAMERA_MODEL> rosbag:=<YOUR_DATASET_PATH>
