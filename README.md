@@ -127,16 +127,21 @@ navigation:=False
 ```
 Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
 
-## Try More Examples
-
-Example Realsense camera launch:
+## Run Realsense Camera Launch File 
+Example Realsense camera launch inside the docker container:
 ```
 ros2 launch nvblox_examples_bringup realsense_example.launch.py
 ```
-
-Example Zed camera launch:
+## Run ZED Camera Launch File
+Example live ZED camera launch inside the docker container:
 ```
-ros2 launch nvblox_examples_bringup zed_example.launch.py
+ros2 launch nvblox_examples_bringup zed_example.launch.py \
+camera:=<ZED_CAMERA_MODEL>
+```
+Example recorded ZED camera launch:
+```
+ros2 launch nvblox_examples_bringup zed_example.launch.py \
+camera:=<ZED_CAMERA_MODEL> rosbag:=<YOUR_DATASET_PATH>
 ```
 
 ## Performance
