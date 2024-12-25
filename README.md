@@ -127,11 +127,23 @@ navigation:=False
 ```
 Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
 
-## Run Realsense Camera Launch File 
-Example Realsense camera launch inside the docker container:
+Exit and stop the docker container that you are currently running:
 ```
-ros2 launch nvblox_examples_bringup realsense_example.launch.py
+Type exit or press Ctrl + D. This will stop the shell, which, if it's the main process of the container, will stop the container as well.
 ```
+Go inside the docker container that you are running from another terminal:
+```
+docker exec -it synthetic_data_container bash
+```
+Stop the docker container:
+```
+docker stop <container-name-or-id>
+```
+Remove the container:
+```
+docker rm <container_name>
+```
+
 ## Run with ZED Camera
 Clone the zed-ros2-wrapper repository on the master branch:
 ```
@@ -170,6 +182,12 @@ ROS2 Example recorded ZED camera launch for nvblox package:
 ```
 ros2 launch nvblox_examples_bringup zed_example.launch.py \
 camera:=<ZED_CAMERA_MODEL> rosbag:=<YOUR_DATASET_PATH>
+```
+
+## Run with Realsense Camera 
+Example Realsense camera launch inside the docker container:
+```
+ros2 launch nvblox_examples_bringup realsense_example.launch.py
 ```
 
 ## Performance
