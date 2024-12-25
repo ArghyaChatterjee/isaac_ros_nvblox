@@ -133,15 +133,15 @@ Type exit or press Ctrl + D. This will stop the shell, which, if it's the main p
 ```
 Go inside the docker container that you are running from another terminal:
 ```
-docker exec -it synthetic_data_container bash
+docker exec -it isaac_ros_dev-x86_64-container /bin/bash
 ```
 Stop the docker container:
 ```
-docker stop <container-name-or-id>
+docker stop isaac_ros_dev-x86_64-container
 ```
 Remove the container:
 ```
-docker rm <container_name>
+docker rm isaac_ros_dev-x86_64-container
 ```
 
 ## Run with ZED Camera
