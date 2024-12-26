@@ -79,6 +79,39 @@ Create a `download_ngc_assets.sh` file inside `${ISAAC_ROS_WS}/src/isaac_ros_com
 ```
 ./download_ngc_assets.sh
 ```
+The downloaded files will be inside `${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_nvblox/` folder in the name of `galileo_people_3_2_0` and `galileo_static_3_2_0`. Both the ros2 bag files have the following topics:
+```
+$ workspaces/isaac_ros-dev/isaac_ros_assets/isaac_ros_nvblox/galileo_people_3_2$ ros2 bag info galileo_people_3_2_0.mcap 
+Files:             galileo_people_3_2_0.mcap
+Bag size:          4.1 GiB
+Storage id:        mcap
+Duration:          30.839599179s
+Start:             Sep 11 2024 20:08:27.182505570 (1726103307.182505570)
+End:               Sep 11 2024 20:08:58.022104749 (1726103338.022104749)
+Messages:          23481
+Topic information: Topic: /camera1/color/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 459 | Serialization Format: cdr
+                   Topic: /camera0/imu | Type: sensor_msgs/msg/Imu | Count: 6146 | Serialization Format: cdr
+                   Topic: /camera0/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 1834 | Serialization Format: cdr
+                   Topic: /camera0/infra1/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 1837 | Serialization Format: cdr
+                   Topic: /camera2/color/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 457 | Serialization Format: cdr
+                   Topic: /camera2/color/image_raw | Type: sensor_msgs/msg/Image | Count: 445 | Serialization Format: cdr
+                   Topic: /camera0/color/image_raw | Type: sensor_msgs/msg/Image | Count: 451 | Serialization Format: cdr
+                   Topic: /camera0/infra2/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 1838 | Serialization Format: cdr
+                   Topic: /camera0/realsense_splitter_node/output/depth | Type: sensor_msgs/msg/Image | Count: 908 | Serialization Format: cdr
+                   Topic: /tf_static | Type: tf2_msgs/msg/TFMessage | Count: 6 | Serialization Format: cdr
+                   Topic: /camera1/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 919 | Serialization Format: cdr
+                   Topic: /camera0/realsense_splitter_node/output/infra_1 | Type: sensor_msgs/msg/Image | Count: 916 | Serialization Format: cdr
+                   Topic: /camera1/color/image_raw | Type: sensor_msgs/msg/Image | Count: 450 | Serialization Format: cdr
+                   Topic: /camera0/realsense_splitter_node/output/infra_2 | Type: sensor_msgs/msg/Image | Count: 916 | Serialization Format: cdr
+                   Topic: /camera1/depth/image_rect_raw | Type: sensor_msgs/msg/Image | Count: 903 | Serialization Format: cdr
+                   Topic: /camera3/depth/image_rect_raw | Type: sensor_msgs/msg/Image | Count: 906 | Serialization Format: cdr
+                   Topic: /camera3/color/image_raw | Type: sensor_msgs/msg/Image | Count: 428 | Serialization Format: cdr
+                   Topic: /camera2/depth/image_rect_raw | Type: sensor_msgs/msg/Image | Count: 912 | Serialization Format: cdr
+                   Topic: /camera0/color/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 459 | Serialization Format: cdr
+                   Topic: /camera3/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 915 | Serialization Format: cdr
+                   Topic: /camera3/color/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 461 | Serialization Format: cdr
+                   Topic: /camera2/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 915 | Serialization Format: cdr
+```
 
 ## Set Up isaac_ros_nvblox
 There are two options for installing nvblox: installation from Debian, and installation from source.
@@ -119,6 +152,25 @@ colcon build --symlink-install --base-paths ${ISAAC_ROS_WS}/src/isaac_ros_nvblox
 source install/setup.bash
 ```
 ## Run Example Launch File
+Example ros2 bag is downloaded and kept inside `${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_nvblox/quickstart` during the container building process. Here are the topics inside the rosbag:
+```
+arghya@arghya-Pulse-GL66-12UEK:~/workspaces/isaac_ros-dev/isaac_ros_assets/isaac_ros_nvblox/quickstart$ ros2 bag info rosbag2_2024_04_04-15_44_33_0.db3 
+[INFO] [1735232216.942041313] [rosbag2_storage]: Opened database 'rosbag2_2024_04_04-15_44_33_0.db3' for READ_ONLY.
+
+Files:             rosbag2_2024_04_04-15_44_33_0.db3
+Bag size:          639.7 MiB
+Storage id:        sqlite3
+Duration:          7.795119867s
+Start:             Mar  8 2024 12:32:28.769934895 (1709922748.769934895)
+End:               Mar  8 2024 12:32:36.565054762 (1709922756.565054762)
+Messages:          1165
+Topic information: Topic: /tf | Type: tf2_msgs/msg/TFMessage | Count: 501 | Serialization Format: cdr
+                   Topic: /front_stereo_camera/left/image_raw | Type: sensor_msgs/msg/Image | Count: 166 | Serialization Format: cdr
+                   Topic: /front_stereo_camera/left/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 166 | Serialization Format: cdr
+                   Topic: /front_stereo_camera/depth/ground_truth | Type: sensor_msgs/msg/Image | Count: 166 | Serialization Format: cdr
+                   Topic: /front_stereo_camera/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 166 | Serialization Format: cdr
+
+```
 Inside the docker container, run the example with:
 ```
 ros2 launch nvblox_examples_bringup isaac_sim_example.launch.py \
