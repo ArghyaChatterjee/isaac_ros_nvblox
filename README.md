@@ -179,6 +179,11 @@ navigation:=False
 ```
 Verify that you see the robot reconstructing a mesh, with the 2d ESDF slice overlaid on top.
 
+Detach from the container:
+```
+You can detach from it without stopping the container by pressing Ctrl + P followed by Ctrl + Q if you are attached to the container's shell. This key sequence signals Docker to detach from the container, but keeps it running in the background.
+```
+
 Exit and stop the docker container that you are currently running:
 ```
 Type exit or press Ctrl + D. This will stop the shell, which, if it's the main process of the container, will stop the container as well.
