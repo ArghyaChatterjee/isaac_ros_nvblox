@@ -222,7 +222,9 @@ Clone the zed-ros2-wrapper repository on the master branch:
 cd ${ISAAC_ROS_WS}/src && \
 git clone --recurse-submodules https://github.com/stereolabs/zed-ros2-wrapper
 ```
-If you are using ZED X or ZED X Mini refer to the appropriate stereolabs setup guide. Plug in the USB cable of your ZED camera before launching the Docker container in the next step.
+If you are using ZED X or ZED X Mini refer to the appropriate stereolabs setup guide. 
+
+Plug in the USB cable of your ZED camera before launching the Docker container in the next step.
 
 Launch the Docker container.
 ```
