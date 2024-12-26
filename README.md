@@ -162,16 +162,16 @@ Now, you will install the ZED SDK. Use `install-zed-aarch64.sh` instead of `inst
 sudo chmod +x ${ISAAC_ROS_WS}/src/isaac_ros_common/docker/scripts/install-zed-x86_64.sh && \
 ${ISAAC_ROS_WS}/src/isaac_ros_common/docker/scripts/install-zed-x86_64.sh
 ```
+After the container image is rebuilt and you are inside the container, you can run the following to check that the ZED camera is connected.
+```
+/usr/local/zed/tools/ZED_Explorer
+```
 Install the dependencies for the zed_wrapper package and build it:
 ```
 cd ${ISAAC_ROS_WS} && \
 sudo apt update && \
 rosdep update && rosdep install --from-paths src/zed-ros2-wrapper --ignore-src -r -y && \
 colcon build --symlink-install --packages-up-to zed_wrapper
-```
-After the container image is rebuilt and you are inside the container, you can run the following to check that the ZED camera is connected.
-```
-/usr/local/zed/tools/ZED_Explorer
 ```
 ROS2 Example live ZED camera launch inside the docker container for nvblox package:
 ```
