@@ -131,6 +131,78 @@ Exit and stop the docker container that you are currently running:
 ```
 Type exit or press Ctrl + D. This will stop the shell, which, if it's the main process of the container, will stop the container as well.
 ```
+In a separate terminal, enter into the same container:
+```
+cd $ISAAC_ROS_WS/src/isaac_ros_common && \
+./scripts/run_dev.sh
+```
+Now, you can list the no. of nodes this process is publishing:
+```
+/launch_ros_228618
+/nvblox_container
+/nvblox_node
+/rviz
+/transform_listener_impl_593de3e3e640
+/transform_listener_impl_5d4f3fcec7e0
+/transform_listener_impl_7954d4028e60
+/zed/zed_node
+/zed/zed_state_publisher
+```
+`/nvblox_node` node is subscribing and publishing to the following topics:
+```
+/nvblox_node
+  Subscribers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /transform: geometry_msgs/msg/TransformStamped
+    /zed/zed_node/depth/camera_info: sensor_msgs/msg/CameraInfo
+    /zed/zed_node/depth/depth_registered: sensor_msgs/msg/Image
+    /zed/zed_node/depth/depth_registered/nitros: negotiated_interfaces/msg/NegotiatedTopicsInfo
+    /zed/zed_node/pose: geometry_msgs/msg/PoseStamped
+    /zed/zed_node/rgb/camera_info: sensor_msgs/msg/CameraInfo
+    /zed/zed_node/rgb/image_rect_color: sensor_msgs/msg/Image
+    /zed/zed_node/rgb/image_rect_color/nitros: negotiated_interfaces/msg/NegotiatedTopicsInfo
+  Publishers:
+    /nvblox_node/back_projected_depth/zed_left_camera_optical_frame: sensor_msgs/msg/PointCloud2
+    /nvblox_node/color_layer: nvblox_msgs/msg/VoxelBlockLayer
+    /nvblox_node/color_layer_marker: visualization_msgs/msg/Marker
+    /nvblox_node/combined_occupancy_grid: nav_msgs/msg/OccupancyGrid
+    /nvblox_node/dynamic_occupancy_grid: nav_msgs/msg/OccupancyGrid
+    /nvblox_node/esdf_slice_bounds: visualization_msgs/msg/Marker
+    /nvblox_node/mesh: nvblox_msgs/msg/Mesh
+    /nvblox_node/pessimistic_static_esdf_pointcloud: sensor_msgs/msg/PointCloud2
+    /nvblox_node/pessimistic_static_map_slice: nvblox_msgs/msg/DistanceMapSlice
+    /nvblox_node/shapes_to_clear: visualization_msgs/msg/MarkerArray
+    /nvblox_node/static_esdf_pointcloud: sensor_msgs/msg/PointCloud2
+    /nvblox_node/static_map_slice: nvblox_msgs/msg/DistanceMapSlice
+    /nvblox_node/static_occupancy_grid: nav_msgs/msg/OccupancyGrid
+    /nvblox_node/tsdf_layer: nvblox_msgs/msg/VoxelBlockLayer
+    /nvblox_node/tsdf_layer_marker: visualization_msgs/msg/Marker
+    /nvblox_node/workspace_bounds: visualization_msgs/msg/Marker
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /nvblox_node/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /nvblox_node/get_esdf_and_gradient: nvblox_msgs/srv/EsdfAndGradients
+    /nvblox_node/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /nvblox_node/get_parameters: rcl_interfaces/srv/GetParameters
+    /nvblox_node/list_parameters: rcl_interfaces/srv/ListParameters
+    /nvblox_node/load_map: nvblox_msgs/srv/FilePath
+    /nvblox_node/save_map: nvblox_msgs/srv/FilePath
+    /nvblox_node/save_ply: nvblox_msgs/srv/FilePath
+    /nvblox_node/save_rates: nvblox_msgs/srv/FilePath
+    /nvblox_node/save_timings: nvblox_msgs/srv/FilePath
+    /nvblox_node/set_parameters: rcl_interfaces/srv/SetParameters
+    /nvblox_node/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+```
+`/nvblox_container` node is subscribing and publishing to the following topics:
+```
+/nvblox_container
+  Subscribers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+  Publishers:
+    /rosout: rcl_interfaces/msg/Log
+```
+### Traditional docker commands (not working with nvblox container but helpful)
 Go inside the docker container that you are running from another terminal:
 ```
 docker exec -it isaac_ros_dev-x86_64-container /bin/bash
@@ -177,13 +249,21 @@ ROS2 Example live ZED camera launch inside the docker container for nvblox packa
 ```
 ros2 launch nvblox_examples_bringup zed_example.launch.py \
 camera:=<ZED_CAMERA_MODEL>
+## Currently works with only `zed2` and `zedx` camera
 ```
 ROS2 Example recorded ZED camera launch for nvblox package:
 ```
 ros2 launch nvblox_examples_bringup zed_example.launch.py \
 camera:=<ZED_CAMERA_MODEL> rosbag:=<YOUR_DATASET_PATH>
 ```
-
+If you want to run with your rosbag / zed rosbag, you have to make sure that you are remapping them correctly inside the launch file inside `$ISAAC_ROS_WS/src/isaac_ros_nvblox/nvblox_examples/nvblox_examples_bringup/launch/perception/nvblox.launch.py` file.
+```
+remappings.append(('camera_0/depth/image', '/zed/zed_node/depth/depth_registered'))
+remappings.append(('camera_0/depth/camera_info', '/zed/zed_node/depth/camera_info'))
+remappings.append(('camera_0/color/image', '/zed/zed_node/rgb/image_rect_color'))
+remappings.append(('camera_0/color/camera_info', '/zed/zed_node/rgb/camera_info'))
+remappings.append(('pose', '/zed/zed_node/pose'))
+```
 ## Run with Realsense Camera 
 Example Realsense camera launch inside the docker container:
 ```
