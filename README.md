@@ -117,7 +117,11 @@ Topic information: Topic: /camera1/color/camera_info | Type: sensor_msgs/msg/Cam
                    Topic: /camera2/depth/camera_info | Type: sensor_msgs/msg/CameraInfo | Count: 915 | Serialization Format: cdr
 ```
 
-## Set Up isaac_ros_nvblox
+<div align="center">
+  <img src="resources/nvblox_performance_setup.png" width="600">
+</div>
+
+## Setup isaac_ros_nvblox
 There are two options for installing nvblox: installation from Debian, and installation from source.
 
 ### Installation from Debian
@@ -137,7 +141,7 @@ rosdep install isaac_ros_nvblox
 Clone isaac_ros_nvblox under ${ISAAC_ROS_WS}/src.
 ```
 cd ${ISAAC_ROS_WS}/src
-git clone --recursive -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git isaac_ros_nvblox
+git clone --recursive https://github.com/ArghyaChatterjee/isaac_ros_nvblox.git isaac_ros_nvblox
 ```
 Launch the Docker container using the run_dev.sh script:
 ```
