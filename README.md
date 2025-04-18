@@ -2,7 +2,9 @@
 
 Nvblox ROS 2 integration for local 3D scene reconstruction and mapping.
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_sim_nvblox_humans.gif/"><img alt="image" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_nvblox/isaac_sim_nvblox_humans.gif/" width="600px"/></a></div>
+<div align="center">
+  <img src="media/ihmc_nvblox_demo.gif" width="400">
+</div>
 
 # Quickstart
 
