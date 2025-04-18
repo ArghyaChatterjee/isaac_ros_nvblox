@@ -2,9 +2,11 @@
 
 Nvblox ROS 2 integration for local 3D scene reconstruction and mapping.
 
-<div align="center">
-  <img src="media/ihmc_nvblox_demo.gif" width="400">
-</div>
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=GUPPQjUfOi8" target="_blank">
+    <img src="resources/ihmc_nvblox_demo.gif" alt="Video Thumbnail" width="80%">
+  </a>
+</p>
 
 # Quickstart
 
